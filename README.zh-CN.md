@@ -35,7 +35,7 @@
 ### 项目亮点
 
 - ✅ 基于开源企业知识库 **[The GitLab handbook](https://gitlab.com/gitlab-com/content-sites/handbook)** `2025/10/11 10:41` 版本
-- ✅ 问题覆盖：[单文本](datasets/contextual_anaphora.jsonl)、[多模态](datasets/multimodal.jsonl)、[否定排除](datasets/negation_exclusion.jsonl)、[时间指代](datasets/temporal_reference.jsonl)、[上下文指代](datasets/contextual_anaphora.jsonl)、[多跳推理](datasets/multi-hop_reasoning.jsonl)
+- ✅ 问题覆盖：[单文本](datasets/single_text.jsonl)、[多模态](datasets/multimodal.jsonl)、[否定排除](datasets/negation_exclusion.jsonl)、[时间指代](datasets/temporal_reference.jsonl)、[上下文指代](datasets/contextual_anaphora.jsonl)、[多跳推理](datasets/multi-hop_reasoning.jsonl)
 - ✅ 包含知识库原文件，可用于测评大多数 RAG 方案；元数据丰富，易于评估调优
 <br>
 

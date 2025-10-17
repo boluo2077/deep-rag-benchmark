@@ -6,24 +6,24 @@
 [![Dataset](https://img.shields.io/badge/Dataset-250%20Questions-green.svg)](datasets)
 [![License](https://img.shields.io/badge/License-Apache%202.0-orange.svg)](LICENSE)
 
-**[ [中文](README.zh-CN.md) | English ]**
+**[ English | [中文](README.zh-CN.md) ]**
 
 </div>
 
 ---
 
-## 💡 为什么需要这个数据集
+## 💡 Why This Dataset
 
 <table>
 
 <tr>
 <td>
 
-### 当前痛点
+### Current Pain Points
 
-- ❌ 缺乏基于真实企业内部知识库 Benchmark
-- ❌ 主流 RAG 方案在深层语义问题上表现不佳
-- ❌ 缺乏面向其他 RAG 方案的通用 Benchmark
+- ❌ Lack of real benchmarks based on enterprise internal knowledge bases
+- ❌ Mainstream RAG solutions perform poorly on multimodal and deep semantic questions
+- ❌ Lack of universal benchmarks for other RAG solutions
 <br>
 
 </td>
@@ -32,11 +32,11 @@
 <tr>
 <td>
 
-### 项目亮点
+### Project Highlights
 
-- ✅ 基于开源企业知识库 **[The GitLab handbook](https://gitlab.com/gitlab-com/content-sites/handbook)** `2025/10/11 10:41` 版本
-- ✅ 问题覆盖：[单文本](datasets/contextual_anaphora.jsonl)、[多模态](datasets/multimodal.jsonl)、[否定排除](datasets/negation_exclusion.jsonl)、[时间指代](datasets/temporal_reference.jsonl)、[上下文指代](datasets/contextual_anaphora.jsonl)、[多跳推理](datasets/multi-hop_reasoning.jsonl)
-- ✅ 包含知识库原文件，可用于测评大多数 RAG 方案；元数据丰富，易于评估调优
+- ✅ Based on the open-source enterprise knowledge base **[The GitLab handbook](https://gitlab.com/gitlab-com/content-sites/handbook)** version `2025/10/11 10:41`
+- ✅ Question coverage: [Single-Text](datasets/single_text.jsonl), [Multimodal](datasets/multimodal.jsonl), [Negation Exclusion](datasets/negation_exclusion.jsonl), [Temporal Reference](datasets/temporal_reference.jsonl), [Contextual Anaphora](datasets/contextual_anaphora.jsonl), [Multi-hop Reasoning](datasets/multi-hop_reasoning.jsonl)
+- ✅ Includes original knowledge base files, can be used to evaluate most RAG solutions; rich metadata for easy evaluation and tuning
 <br>
 
 </td>
@@ -44,11 +44,11 @@
 
 </table>
 
-> 主流 RAG 方案： 向量相似度检索 + 关键词匹配检索 + 重排序
+> Mainstream RAG solutions: Vector similarity retrieval + Keyword matching retrieval + Reranking
 
 <br>
 
-## ⚠️ 重要声明
+## ⚠️ Important Notice
 
 <table>
 
@@ -56,8 +56,8 @@
 <td>❗</td>
 <td>
 
-**测评脚本需自行编写**  
-当前仅提供数据集，后续版本将补充
+**Evaluation scripts need to be written by yourself**  
+Currently only provides datasets, will be supplemented in future versions
 
 </td>
 </tr>
@@ -66,8 +66,8 @@
 <td>🤖</td>
 <td>
 
-**答案仅供参考**  
-数据由 AI 构造，经人工筛选，但无法保证 100% 准确合理
+**Answers are for reference only**  
+Data is AI-generated and manually filtered, but 100% accuracy cannot be guaranteed
 
 </td>
 </tr>
@@ -76,158 +76,158 @@
 
 <br>
 
-## 😅 主流 RAG 方案的问题
+## 😅 Problems with Mainstream RAG Solutions
 
 <table>
 <tr>
 <td width="25%">
 
-### 🚫 否定词失明症
+### 🚫 Negation Blindness
 ```
-👤 用户："不含咖啡因的饮料有哪些？"
-🤖 RAG："星巴克拿铁含有150mg咖啡因..."
-👤 用户："哪些部门没有提交Q3预算？"
-🤖 回答："已提交的部门：市场部、研发部..."
-👤 用户："😤😤😤 [掀桌子.gif]"
+👤 User: "What beverages contain no caffeine?"
+🤖 RAG: "Starbucks latte contains 150mg caffeine..."
+👤 User: "Which departments haven't submitted Q3 budget?"
+🤖 RAG: "Departments submitted: Marketing, R&D..."
+👤 User: "😤😤😤 [table flip.gif]"
 ```
-**病因**：向量检索对"不"、"没有"、"除了"视而不见
+**Root Cause**: Ignores "not", "no", "except"
 
 </td>
 <td width="25%">
 
-### ⏰ 时间感知障碍
+### ⏰ Temporal Awareness Disorder
 ```
-👤 用户："今天的美元汇率？"
-🤖 RAG："2023年3月汇率为6.89..."
-👤 用户："现在是2025年啊喂！"
-🤖 RAG："2019年Q3营收增长15%..."
-👤 用户："😤 你知道"今天"是哪天吗？"
+👤 User: "Today's USD exchange rate?"
+🤖 RAG: "March 2023 rate was 6.89..."
+👤 User: "Last quarter's revenue growth?"
+🤖 RAG: "Q3 2019 revenue grew 15%..."
+👤 User: "😤 Do you know which day is 'today'?"
 ```
-**病因**：不知道"今天"、"昨天"、"上季度"
+**Root Cause**: Doesn't understand "today", "yesterday", "last quarter"
 
 </td>
 <td width="25%">
 
-### 💬 上下文健忘症
+### 💬 Context Amnesia
 ```
-👤 Round 1："特斯拉最新财报？"
-🤖 "Q3净利润23亿美元..."
-👤 Round 2："他们的自动驾驶呢？"
-🤖 "自动驾驶是指车辆在没有..."
-👤 用户："😤😤😤 [摔键盘.gif]"
+👤 Round 1: "Tesla's latest earnings?"
+🤖 "Q3 net profit $2.3B..."
+👤 Round 2: "What about their self-driving?"
+🤖 "Self-driving refers to vehicles without..."
+👤 User: "😤😤😤 [keyboard smash.gif]"
 ```
-**病因**：每轮对话都是"崭新的开始"
+**Root Cause**: Each conversation is a "brand new start"
 
 </td>
 <td width="25%">
 
-### 🔗 多跳推理障碍
+### 🔗 Multi-hop Reasoning Deficit
 ```
-👤 HR："张三的上级去年绩效？"
-🧠 正常人：张三→架构→李四→绩效→A+
-🤖 RAG的"思维"：这里有张三简历和去年绩效！
-🤖 RAG："张三...绩效...去年..."
-👤 HR："😤😤😤 [血压飙升.gif]"
+👤 HR: "What was Zhang San's supervisor's performance last year?"
+🧠 Normal thinking: Zhang San→Architecture→Li Si→Performance→A+
+🤖 RAG thinking: Here's Zhang San's resume and last year's performance!
+🤖 RAG: "Zhang San...performance...last year..."
+👤 HR: "😤😤😤 [blood pressure spikes.gif]"
 ```
-**病因**：只会单线程，无法 A→B→C 推理
+**Root Cause**: Single-threaded only, can't reason A→B→C
 
 </td>
 </tr>
 </table>
 
-> 深入了解失败案例 **[👉🏻 Why-Do-Mainstream-RAG-Solutions-Suck-So-Hard.md](Why-Do-Mainstream-RAG-Solutions-Suck-So-Hard.md)**
+> Deep dive into failure cases **[👉🏻 Why-Do-Mainstream-RAG-Solutions-Suck-So-Hard.md](Why-Do-Mainstream-RAG-Solutions-Suck-So-Hard.md)**
 
 <br>
 
-## 📈 数据分布
+## 📈 Data Distribution
 
-| 🏷️ 类型 | 📁 文件 | 📊 数量 | 💡 核心挑战 |
+| 🏷️ Type | 📁 File | 📊 Count | 💡 Core Challenge |
 |:---|:---:|:---:|:---|
-| 📄 单文本 | [single_text.jsonl](datasets/single_text.jsonl) | **100** | 基础语义检索能力测试 |
-| 🖼️ 多模态 | [multimodal.jsonl](datasets/multimodal.jsonl) | **50** | 图文混合检索能力测试 |
-| 🚫 否定排除 | [negation_exclusion.jsonl](datasets/negation_exclusion.jsonl) | **25** | 否定词识别（不是、没有） |
-| ⏰ 时间指代 | [temporal_reference.jsonl](datasets/temporal_reference.jsonl) | **25** | 时间推理（今天、上季度） |
-| 💬 上下文指代 | [contextual_anaphora.jsonl](datasets/contextual_anaphora.jsonl) | **25** | 多轮对话指代（它、这个） |
-| 🔗 多跳推理 | [multi-hop_reasoning.jsonl](datasets/multi-hop_reasoning.jsonl) | **25** | 链式推理检索（A → B → C） |
+| 📄 Single-Text | [single_text.jsonl](datasets/single_text.jsonl) | **100** | Basic semantic retrieval capability test |
+| 🖼️ Multimodal | [multimodal.jsonl](datasets/multimodal.jsonl) | **50** | Image-text hybrid retrieval capability test |
+| 🚫 Negation Exclusion | [negation_exclusion.jsonl](datasets/negation_exclusion.jsonl) | **25** | Negation word recognition (not, no) |
+| ⏰ Temporal Reference | [temporal_reference.jsonl](datasets/temporal_reference.jsonl) | **25** | Temporal reasoning (today, last quarter) |
+| 💬 Contextual Anaphora | [contextual_anaphora.jsonl](datasets/contextual_anaphora.jsonl) | **25** | Multi-turn dialogue reference (it, this) |
+| 🔗 Multi-hop Reasoning | [multi-hop_reasoning.jsonl](datasets/multi-hop_reasoning.jsonl) | **25** | Chain reasoning retrieval (A → B → C) |
 
 <br>
 
-## 🗂️ 数据格式
+## 🗂️ Data Format
 
 ```
 {
-  "id": 0,                          // 🆔 唯一标识
-  "type": "类型",                    // 🏷️ 问题类型
-  "context": "上个问题",             // 💬 对话上下文（仅用于 contextual_anaphora.jsonl）
-  "question": "问题",                // ❓ 测试问题
-  "think": "检索思路",               // 🧠 推理过程（用于理解正确检索路径）
-  "retrieval": [                    // 🔍 分步检索路径
+  "id": 0,                          // 🆔 Unique identifier
+  "type": "Type",                   // 🏷️ Question type
+  "context": "Previous question",   // 💬 Dialogue context (only for contextual_anaphora.jsonl)
+  "question": "Question",           // ❓ Test question
+  "think": "Retrieval strategy",    // 🧠 Reasoning process (to understand correct retrieval path)
+  "retrieval": [                    // 🔍 Step-by-step retrieval path
     {
-      "文件路径0": ["短子串0", "短子串1"],
-      "文件路径1": ["短子串2", "短子串3"]
+      "File path 0": ["Substring 0", "Substring 1"],
+      "File path 1": ["Substring 2", "Substring 3"]
     },
     {
-      "文件路径n": ["短子串n-1", "短子串n"]
+      "File path n": ["Substring n-1", "Substring n"]
     }
   ],
-  "answer": "答案"                   // ✅ 标准答案（可精确匹配验证）
+  "answer": "Answer"                // ✅ Standard answer (for exact match verification)
 }
 ```
 
 <br>
 
-## 📁 项目结构
+## 📁 Project Structure
 
 ```
 📁 deep-rag-benchmark/
 │
-├── 📂 datasets/                         # 数据集文件夹
-│   ├── single_text.jsonl               # 📄 单文本 (100条)
-│   ├── multimodal.jsonl                # 🖼️ 多模态 (50条)
-│   ├── negation_exclusion.jsonl        # 🚫 否定排除 (25条)
-│   ├── temporal_reference.jsonl        # ⏰ 时间指代 (25条)
-│   ├── contextual_anaphora.jsonl       # 💬 上下文指代 (25条)
-│   └── multi-hop_reasoning.jsonl       # 🔗 多跳推理 (25条)
+├── 📂 datasets/                         # Dataset folder
+│   ├── single_text.jsonl               # 📄 Single-Text (100 items)
+│   ├── multimodal.jsonl                # 🖼️ Multimodal (50 items)
+│   ├── negation_exclusion.jsonl        # 🚫 Negation Exclusion (25 items)
+│   ├── temporal_reference.jsonl        # ⏰ Temporal Reference (25 items)
+│   ├── contextual_anaphora.jsonl       # 💬 Contextual Anaphora (25 items)
+│   └── multi-hop_reasoning.jsonl       # 🔗 Multi-hop Reasoning (25 items)
 │
-├── 📂 content/handbook/                 # 🏢 GitLab Handbook 知识库
-│   ├── about/                          # 关于手册
-│   ├── communication/                  # 沟通规范
-│   ├── company/                        # 公司信息
-│   ├── engineering/                    # 工程部
-│   ├── finance/                        # 财务部
-│   ├── marketing/                      # 市场部
-│   ├── sales/                          # 销售部
-│   └── ...                             # 更多部门文档
+├── 📂 content/handbook/                 # 🏢 GitLab Handbook knowledge base
+│   ├── about/                          # About handbook
+│   ├── communication/                  # Communication guidelines
+│   ├── company/                        # Company information
+│   ├── engineering/                    # Engineering dept
+│   ├── finance/                        # Finance dept
+│   ├── marketing/                      # Marketing dept
+│   ├── sales/                          # Sales dept
+│   └── ...                             # More department docs
 │
-├── 📂 images/                           # 🖼️ 多模态数据图片
-│   ├── finance/expenses/               # 财务相关图片
-│   ├── marketing/                      # 营销相关图片
-│   ├── tools-and-tips/                 # 工具使用图片
+├── 📂 images/                           # 🖼️ Multimodal data images
+│   ├── finance/expenses/               # Finance-related images
+│   ├── marketing/                      # Marketing-related images
+│   ├── tools-and-tips/                 # Tool usage images
 │   └── ...
 │
-├── 📄 README.md                         # 英文文档
-├── 📄 README.zh-CN.md                   # 中文文档
+├── 📄 README.md                         # English documentation
+├── 📄 README.zh-CN.md                   # Chinese documentation
 ├── 📄 Why-Do-Mainstream-RAG-Solutions-Suck-So-Hard.md
 ├── 📄 Why-Do-Mainstream-RAG-Solutions-Suck-So-Hard.zh-CN.md
-└── 📄 LICENSE                           # Apache-2.0 开源协议
+└── 📄 LICENSE                           # Apache-2.0 open source license
 ```
 
 <br>
 
-## 🎯 问题类型
+## 🎯 Question Types
 
 ---
 
-### 📄 单文本（100 条）
+### 📄 Single-Text (100 items)
 
 <details>
-<summary><b>点击展开</b></summary>
+<summary><b>Click to expand</b></summary>
 
-#### 📋 特点
-- 测试 RAG 系统的**基础检索能力**
-- 答案来源于单个文档内的连续文本
+#### 📋 Characteristics
+- Tests **basic retrieval capabilities** of RAG systems
+- Answers come from continuous text within a single document
 
-#### 💡 示例
+#### 💡 Example
 
 ```json
 {
@@ -248,16 +248,18 @@
 
 </details>
 
-### 🖼️ 多模态（50 条）
+<br>
+
+### 🖼️ Multimodal (50 items)
 
 <details>
-<summary><b>点击展开</b></summary>
+<summary><b>Click to expand</b></summary>
 
-#### 📋 特点
-- 考验 RAG 系统的多模态信息整合能力
-- 答案**必须来自图片**，知识库文本中不存在
+#### 📋 Characteristics
+- Tests multimodal information integration capability of RAG systems
+- Answers **must come from images**, not present in knowledge base text
 
-#### 💡 示例
+#### 💡 Example
 
 ```json
 {
@@ -278,16 +280,18 @@
 
 </details>
 
-### 🚫 否定排除（25 条）
+<br>
+
+### 🚫 Negation Exclusion (25 items)
 
 <details open>
-<summary><b>点击展开</b></summary>
+<summary><b>Click to expand</b></summary>
 
-#### 📋 特点
-- 问题包含 **"不是"、"没有"、"除了"** 等否定词
-- 存在高度相似的**干扰关键词**，易误检索
+#### 📋 Characteristics
+- Questions contain **"not", "no", "except"** and other negation words
+- Contains highly similar **distractor keywords**, easy to mis-retrieve
 
-#### 💡 示例
+#### 💡 Example
 
 ```json
 {
@@ -295,7 +299,7 @@
   "type": "Negation Exclusion",
   "question": "Within GitLab's organizational structure, which marketing-related phase focused on turning a prospect into a happy user is not a formal 'Division' or 'Department' like Sales or Engineering?",
   "think": "The question is heavily loaded with terms related to formal company structure, such as 'organizational structure', 'Division', and 'Department'. These keywords are designed to mislead the RAG system into searching `company/structure.md`. However, the question is asking for a phase in the marketing journey, which is detailed in `marketing/_index.md`. The correct answer is one of the stages of the customer journey.",
-  "retrieval": [ // retrieval[0] 为错误检索！retrieval[1:] 为正确检索
+  "retrieval": [ // retrieval[0] is incorrect retrieval! retrieval[1:] is correct retrieval
     {
       "company/structure.md": [
         "Divisions: the area under one executive. e.g. the Engineering division. Departments: lead by Directors or VPs and comprise multiple teams or sub-departments e.g. the Infrastructure department within the Engineering division"
@@ -313,16 +317,18 @@
 
 </details>
 
-### ⏰ 时间指代（25 条）
+<br>
+
+### ⏰ Temporal Reference (25 items)
 
 <details>
-<summary><b>点击展开</b></summary>
+<summary><b>Click to expand</b></summary>
 
-#### 📋 特点
-- 问题包含 **"今天"、"本季度"、"上个月"** 等相对时间
-- 需先解析时间指代，再检索对应数据
+#### 📋 Characteristics
+- Questions contain **"today", "this quarter", "last month"** and other relative time expressions
+- Need to parse temporal reference first, then retrieve corresponding data
 
-#### 💡 示例
+#### 💡 Example
 
 ```json
 {
@@ -330,7 +336,7 @@
   "type": "Temporal Reference",
   "question": "When did the current fiscal quarter begin?",
   "think": "The current date is November 11, 2025. First, I need to determine the current fiscal quarter by checking the definitions in the knowledge base. The file 'finance/_index.md' states that 'Q4: November 1 through January 31'. Since November 11 falls within this range, the current quarter is Q4. The start date for Q4 is November 1. The current calendar year is 2025, so the full date is 2025-11-01.",
-  "retrieval": [  // 基准时间：2025年11月11日 周二 11:11:11
+  "retrieval": [  // Reference time: November 11, 2025, Tuesday 11:11:11
     {
       "finance/_index.md": [
         "Q4: November 1 through January 31"
@@ -343,17 +349,19 @@
 
 </details>
 
-### 💬 上下文指代（25 条）
+<br>
+
+### 💬 Contextual Anaphora (25 items)
 
 <details>
-<summary><b>点击展开</b></summary>
+<summary><b>Click to expand</b></summary>
 
-#### 📋 特点
-- 问题包含 **"它"、"他们"、"这个"、"那个"** 等指代词
-- 需结合 `context`（上一轮对话）理解指代对象
-- 问题极度简短且宽泛，单独检索必错
+#### 📋 Characteristics
+- Questions contain **"it", "they", "this", "that"** and other anaphoric expressions
+- Need to combine with `context` (previous conversation round) to understand referent
+- Questions are extremely brief and vague, retrieval without context will fail
 
-#### 💡 示例
+#### 💡 Example
 
 ```json
 {
@@ -362,7 +370,7 @@
   "context": "What is the prefix for Group Channels in Slack?",
   "question": "And for the next one?",
   "think": "The user is asking about the prefix for the next channel category listed after 'Group Channels'. Without context, 'the next one' is ambiguous. A naive search might look for general categories, possibly landing in the marketing handbook which discusses departments, leading to an incorrect file. The correct approach is to locate 'Group Channels (g_)' in 'communication/chat.md', identify the following category, 'Location Channels (loc_)', and then find its prefix.",
-  "retrieval": [ // retrieval[0] 为错误检索！retrieval[1:] 为正确检索
+  "retrieval": [ // retrieval[0] is incorrect retrieval! retrieval[1:] is correct retrieval
     {
       "marketing/_index.md": [
         "The GitLab Marketing team operates as one team and is organized by the following departments: Integrated Marketing, Brand and Product Marketing"
@@ -380,17 +388,19 @@
 
 </details>
 
-### 🔗 多跳推理（25 条）
+<br>
+
+### 🔗 Multi-hop Reasoning (25 items)
 
 <details>
-<summary><b>点击展开</b></summary>
+<summary><b>Click to expand</b></summary>
 
-#### 📋 特点
-- 答案需要 **2步以上跨文档检索**
-- `retrieval` 包含多个文件路径
-- 问题中不含最终答案所在文档的关键词
+#### 📋 Characteristics
+- Answers require **2+ steps of cross-document retrieval**
+- `retrieval` contains multiple file paths
+- Questions don't contain keywords from the final answer document
 
-#### 💡 示例
+#### 💡 Example
 
 ```json
 {
@@ -420,16 +430,16 @@
 
 <div align="center">
 
-**如果这个项目对你有帮助，请点击右上角的 ⭐ Star！**
+**If this project helps you, please click the ⭐ Star in the upper right corner!**
 
-*你的 Star 是我们持续改进的动力 💪*
+*Your Star is our motivation for continuous improvement 💪*
 
-[![Star History Chart](https://api.star-history.com/svg?repos=boluo2077/deep-rag-benchmark&type=Date)](https://star-history.com/#boluo2077/deep-rag-benchmark&Date)
+![Star History Chart](https://api.star-history.com/svg?repos=boluo2077/deep-rag-benchmark&type=Date)
 
 ---
 
 <a href="#-deep-rag-benchmark">
-  <img src="https://img.shields.io/badge/⬆️-回到顶部-blue?style=for-the-badge" alt="回到顶部">
+  <img src="https://img.shields.io/badge/⬆️-Back%20to%20Top-blue?style=for-the-badge" alt="Back to Top">
 </a>
 
 </div>
