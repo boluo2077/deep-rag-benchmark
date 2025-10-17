@@ -6,7 +6,7 @@
 [![Dataset](https://img.shields.io/badge/Dataset-250%20Questions-green.svg)](datasets)
 [![License](https://img.shields.io/badge/License-Apache%202.0-orange.svg)](LICENSE)
 
-**[ [中文](README.zh-CN.md) | English ]**
+**[ [English](README.md) | 中文 ]**
 
 </div>
 
@@ -21,8 +21,8 @@
 
 ### 当前痛点
 
-- ❌ 缺乏基于真实企业内部知识库 Benchmark
-- ❌ 主流 RAG 方案在深层语义问题上表现不佳
+- ❌ 缺乏基于企业内部知识库的真实 Benchmark
+- ❌ 在多模态和深层语义问题上，主流 RAG 方案表现不佳
 - ❌ 缺乏面向其他 RAG 方案的通用 Benchmark
 <br>
 
@@ -90,7 +90,7 @@
 🤖 回答："已提交的部门：市场部、研发部..."
 👤 用户："😤😤😤 [掀桌子.gif]"
 ```
-**病因**：向量检索对"不"、"没有"、"除了"视而不见
+**病因**：对"不"、"没有"、"除了"视而不见
 
 </td>
 <td width="25%">
@@ -99,7 +99,7 @@
 ```
 👤 用户："今天的美元汇率？"
 🤖 RAG："2023年3月汇率为6.89..."
-👤 用户："现在是2025年啊喂！"
+👤 用户："上季度的营收增长率？"
 🤖 RAG："2019年Q3营收增长15%..."
 👤 用户："😤 你知道"今天"是哪天吗？"
 ```
@@ -124,8 +124,8 @@
 ### 🔗 多跳推理障碍
 ```
 👤 HR："张三的上级去年绩效？"
-🧠 正常人：张三→架构→李四→绩效→A+
-🤖 RAG的"思维"：这里有张三简历和去年绩效！
+🧠 正常人的思维：张三→架构→李四→绩效→A+
+🤖 RAG的思维：这里有张三简历和去年绩效！
 🤖 RAG："张三...绩效...去年..."
 👤 HR："😤😤😤 [血压飙升.gif]"
 ```
@@ -135,7 +135,7 @@
 </tr>
 </table>
 
-> 深入了解失败案例 **[👉🏻 Why-Do-Mainstream-RAG-Solutions-Suck-So-Hard.md](Why-Do-Mainstream-RAG-Solutions-Suck-So-Hard.md)**
+> 深入了解失败案例 **[👉🏻 Why-Do-Mainstream-RAG-Solutions-Suck-So-Hard.zh-CN.md](Why-Do-Mainstream-RAG-Solutions-Suck-So-Hard.zh-CN.md)**
 
 <br>
 
@@ -248,6 +248,8 @@
 
 </details>
 
+<br>
+
 ### 🖼️ 多模态（50 条）
 
 <details>
@@ -277,6 +279,8 @@
 ```
 
 </details>
+
+<br>
 
 ### 🚫 否定排除（25 条）
 
@@ -313,6 +317,8 @@
 
 </details>
 
+<br>
+
 ### ⏰ 时间指代（25 条）
 
 <details>
@@ -342,6 +348,8 @@
 ```
 
 </details>
+
+<br>
 
 ### 💬 上下文指代（25 条）
 
@@ -379,6 +387,8 @@
 ```
 
 </details>
+
+<br>
 
 ### 🔗 多跳推理（25 条）
 
@@ -424,7 +434,7 @@
 
 *你的 Star 是我们持续改进的动力 💪*
 
-[![Star History Chart](https://api.star-history.com/svg?repos=boluo2077/deep-rag-benchmark&type=Date)](https://star-history.com/#boluo2077/deep-rag-benchmark&Date)
+![Star History Chart](https://api.star-history.com/svg?repos=boluo2077/deep-rag-benchmark&type=Date)
 
 ---
 
